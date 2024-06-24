@@ -1,0 +1,394 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pre-Book and Payment</title>
+    <script src="https://js.stripe.com/v3/"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Lato:wght@400;700&family=Poppins:wght@400;700&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Lato', sans-serif;
+            background-color: #FAFAFA;
+            color: #202020;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            min-height: 100vh;
+        }
+
+        header {
+            background-color: #252525;
+            color: #FFF225;
+            width: 100%;
+            padding: 20px;
+            text-align: center;
+            font-family: 'Poppins', sans-serif;
+            font-size: 24px;
+        }
+
+        .pre-book-section {
+            background-color: #EDEDED;
+            border: 1px solid #DDDDDD;
+            margin: 20px;
+            padding: 20px;
+            border-radius: 8px;
+            width: 80%;
+            max-width: 800px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            animation: fadeIn 2s;
+        }
+
+        .pre-book-section h2 {
+            font-family: 'Poppins', sans-serif;
+            color: #252525;
+            margin-bottom: 10px;
+        }
+
+        .carousel-container {
+            position: relative;
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        .carousel {
+            display: flex;
+            overflow: hidden;
+            border-radius: 8px;
+        }
+
+        .carousel img {
+            width: 100%;
+            transition: transform 0.5s ease;
+        }
+
+        .carousel-button {
+            position: absolute;
+            top: 50%;
+            transform: translateY(-50%);
+            background-color: rgba(0, 0, 0, 0.5);
+            color: white;
+            border: none;
+            padding: 10px;
+            cursor: pointer;
+        }
+
+        .carousel-button.left {
+            left: 10px;
+        }
+
+        .carousel-button.right {
+            right: 10px;
+        }
+
+        .payment-gateway {
+            margin: 20px;
+            padding: 20px;
+            background-color: #FFFFFF;
+            border: 1px solid #DDDDDD;
+            border-radius: 8px;
+            width: 80%;
+            max-width: 800px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        }
+
+        .payment-gateway h3 {
+            font-family: 'Poppins', sans-serif;
+            color: #252525;
+            margin-bottom: 10px;
+        }
+
+        .payment-button {
+            background-color: #F9ED32;
+            border: none;
+            padding: 10px 20px;
+            color: #252525;
+            font-family: 'Poppins', sans-serif;
+            font-size: 16px;
+            border-radius: 4px;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+
+        .payment-button:hover {
+            background-color: #FFF225;
+        }
+
+        .payment-form {
+            display: none;
+            margin: 20px;
+            padding: 20px;
+            background-color: #2C2A2A;
+            border: 1px solid #DDDDDD;
+            border-radius: 8px;
+            width: 80%;
+            max-width: 800px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+        }
+
+        .payment-form h1 {
+            font-family: 'Poppins', sans-serif;
+            color: #F9ED32;
+        }
+
+        .form-row {
+            margin-bottom: 20px;
+        }
+
+        .form-row label {
+            display: block;
+            margin-bottom: 5px;
+            color: #F2F2F2;
+            text-align: left;
+        }
+
+        .form-row input,
+        .form-row select {
+            width: 100%;
+            padding: 10px;
+            box-sizing: border-box;
+            border: 1px solid #3C3C3C;
+            border-radius: 4px;
+            background-color: #414141;
+            color: #FAFAFA;
+        }
+
+        #card-element {
+            padding: 10px;
+            border: 1px solid #3C3C3C;
+            border-radius: 4px;
+            background-color: #414141;
+        }
+
+        #card-errors {
+            color: #FFF225;
+            margin-top: 10px;
+        }
+
+        .submit-button {
+            background-color: #F9ED32;
+            color: #252525;
+            padding: 10px;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            width: 100%;
+            font-family: 'Poppins', sans-serif;
+            font-size: 16px;
+            font-weight: bold;
+        }
+
+        .submit-button:hover {
+            background-color: #FFF225;
+        }
+
+        footer {
+            background-color: #252525;
+            color: #FFFFFF;
+            text-align: center;
+            padding: 10px 0;
+            font-family: 'Poppins', sans-serif;
+            font-size: 14px;
+            width: 100%;
+            margin-top: auto;
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+            }
+
+            to {
+                opacity: 1;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <header>
+        Pre-Book Your Spot Now
+    </header>
+
+    <section class="pre-book-section">
+       <center> <h2>Pre-Book Details</h2> </center>
+        <p></p>
+        <div class="carousel-container">
+            <button class="carousel-button left" onclick="moveCarousel(-1)">&#10094;</button>
+            <div class="carousel">
+                <img src="https://gomotoriders.com/wp-content/uploads/2023/04/Himiway-Rhino-Electric-Bike-Review-768x471.jpg" alt="Slide 1">
+                <img src="https://www.kindpng.com/picc/m/47-479355_payment-method-png-file-icons-payment-methods-png.png" alt="Slide 2">
+                <img src="https://ebizcharge.com/wp-content/uploads/2021/04/how-to-use-pay-now-buttons-to-improve-customer-experience-increase-sales-automate-collections-01.png" alt="Slide 3">
+            </div>
+            <button class="carousel-button right" onclick="moveCarousel(1)">&#10095;</button>
+        </div>
+    </section>
+
+    <section class="payment-gateway">
+        <h3>Payment Gateway</h3>
+        <p>Proceed to make your payment using the button below:</p>
+        <button class="payment-button" onclick="showPaymentForm()">Pay Now</button>
+    </section>
+
+    <section class="payment-form">
+        <h1>Stripe Payment Integration</h1>
+        <form id="payment-form">
+            <div class="form-row">
+                <label for="name">Name</label>
+                <input type="text" id="name" required>
+            </div>
+            <div class="form-row">
+                <label for="email">Email</label>
+                <input type="email" id="email" required>
+            </div>
+            <div class="form-row">
+                <label for="address">Address</label>
+                <input type="text" id="address" required>
+            </div>
+            <div class="form-row">
+                <label for="pincode">Pincode</label>
+                <input type="text" id="pincode" required maxlength="6">
+            </div>
+            <div class="form-row">
+                <label for="city">City</label>
+                <input type="text" id="city" required>
+            </div>
+            <div class="form-row">
+                <label for="state">State</label>
+                <input type="text" id="state" required>
+            </div>
+            <div class="form-row">
+                <label for="phone">Phone Number</label>
+                <div style="display: flex;">
+                    <select id="country-code" style="width: 30%;" required>
+                        <option value="+1">+1 (USA)</option>
+                        <option value="+91">+91 (India)</option>
+                        <option value="+44">+44 (UK)</option>
+                        <option value="+61">+61 (Australia)</option>
+                        <option value="+81">+81 (Japan)</option>
+                        <!-- Add more country codes as needed -->
+                    </select>
+                    <input type="tel" id="phone" style="width: 70%;" required maxlength="10">
+                </div>
+            </div>
+            <div class="form-row">
+                <label for="card-element">Credit or Debit Card</label>
+                <div id="card-element">
+                    <!-- A Stripe Element will be inserted here. -->
+                </div>
+                <!-- Used to display form errors. -->
+                <div id="card-errors" role="alert"></div>
+            </div>
+            <button id="submit" class="submit-button">Pay Now</button>
+        </form>
+    </section>
+
+    <footer>
+        &copy; 2024 Rhyno Ev. All rights reserved.
+    </footer>
+
+    <script>
+        // Function to show payment form
+        function showPaymentForm() {
+            document.querySelector('.payment-gateway').style.display = 'none';
+            document.querySelector('.payment-form').style.display = 'block';
+        }
+ // JavaScript for the image slideshow
+ let currentIndex = 0;
+
+function moveCarousel(direction) {
+    const carousel = document.querySelector('.carousel');
+    const images = carousel.querySelectorAll('img');
+    currentIndex += direction;
+
+    if (currentIndex < 0) {
+        currentIndex = images.length - 1;
+    } else if (currentIndex >= images.length) {
+        currentIndex = 0;
+    }
+
+    const offset = -currentIndex * 100;
+    images.forEach(img => {
+        img.style.transform = `translateX(${offset}%)`;
+    });
+}
+
+setInterval(() => {
+    moveCarousel(1);
+}, 3000);
+
+        // Your Stripe public key
+        var stripe = Stripe('YOUR_PUBLIC_KEY_HERE');
+        var elements = stripe.elements();
+
+        // Custom styling can be passed to options when creating an Element.
+        var style = {
+            base: {
+                color: '#FAFAFA',
+                fontFamily: 'Lato, sans-serif',
+                fontSmoothing: 'antialiased',
+                fontSize: '16px',
+                '::placeholder': {
+                    color: '#aab7c4'
+                }
+            },
+            invalid: {
+                color: '#fa755a',
+                iconColor: '#fa755a'
+            }
+        };
+
+        // Create an instance of the card Element.
+        var card = elements.create('card', { style: style });
+
+        // Add an instance of the card Element into the `card-element` <div>.
+        card.mount('#card-element');
+
+        // Handle real-time validation errors from the card Element.
+        card.on('change', function (event) {
+            var displayError = document.getElementById('card-errors');
+            if (event.error) {
+                displayError.textContent = event.error.message;
+            } else {
+                displayError.textContent = '';
+            }
+        });
+
+        // Handle form submission.
+        var form = document.getElementById('payment-form');
+        form.addEventListener('submit', function (event) {
+            event.preventDefault();
+
+            stripe.createToken(card).then(function (result) {
+                if (result.error) {
+                    // Inform the customer that there was an error.
+                    var errorElement = document.getElementById('card-errors');
+                    errorElement.textContent = result.error.message;
+                } else {
+                    // Send the token to your server.
+                    stripeTokenHandler(result.token);
+                }
+            });
+        });
+
+        // Submit the token and other form data to your server.
+        function stripeTokenHandler(token) {
+            var form = document.getElementById('payment-form');
+            var hiddenInput = document.createElement('input');
+            hiddenInput.setAttribute('type', 'hidden');
+            hiddenInput.setAttribute('name', 'stripeToken');
+            hiddenInput.setAttribute('value', token.id);
+            form.appendChild(hiddenInput);
+
+            // Submit the form
+            form.submit();
+        }
+       
+       
+    </script>
+</body>
+
+</html>

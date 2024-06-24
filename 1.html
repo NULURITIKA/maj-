@@ -1,0 +1,743 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>RHYNOS EV</title>
+    <link href="https://fonts.googleapis.com/css2?family=Lato:wght@400;700&family=Poppins:wght@400;700&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Lato', sans-serif;
+            color: #FFFFFF;
+            background-color: #202020;
+            margin: 0;
+            padding: 0;
+        }
+
+        header {
+            background-color: #2C2A2A;
+            padding: 1rem 0;
+        }
+
+        header .logo img {
+            width: 150px;
+            margin-left: 2rem;
+        }
+
+        nav ul {
+            list-style: none;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            margin: 0;
+            padding: 0;
+        }
+
+        nav ul li {
+            position: relative;
+        }
+
+        nav a {
+            color: #FFFFFF;
+            text-decoration: none;
+            padding: 0.5rem 1rem;
+        }
+
+        nav a:hover {
+            color: #F9ED32;
+        }
+
+        .dropdown-content {
+            display: none;
+            position: absolute;
+            background-color: #2C2A2A;
+            box-shadow: 0 8px 16px #131313(0, 0, 0, 0.2);
+            z-index: 1;
+        }
+
+        .dropdown-content a {
+            padding: 12px 16px;
+            display: block;
+        }
+
+        .dropdown:hover .dropdown-content {
+            display: block;
+        }
+
+        .hero {
+            text-align: center;
+            padding: 4rem 1rem;
+            background-image: url('hero-background.jpg');
+            background-size: cover;
+            background-position: center;
+        }
+
+        .hero h1 {
+            font-family: 'Poppins', sans-serif;
+            font-size: 2.5rem;
+        }
+        .changing-word {
+            color: #F9ED32;
+        }
+
+        .vehicles {
+            display: flex;
+            justify-content: space-around;
+            padding: 2rem 0;
+        }
+
+        .vehicles img {
+            width: 30%;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px #131313(0, 0, 0, 0.1);
+        }
+
+        .usp-carousel {
+            padding: 2rem;
+            background-color: #2C2A2A;
+            border-radius: 10px;
+            margin: 2rem auto;
+            width: 90%;
+            max-width: 1200px;
+        }
+
+        .carousel-container {
+            overflow: hidden;
+            position: relative;
+            width: 100%;
+            box-sizing: border-box;
+        }
+
+        .carousel {
+            display: flex;
+            animation: slide 15s infinite linear;
+        }
+
+        @keyframes slide {
+            0% { transform: translateX(0); }
+            20% { transform: translateX(0); }
+            25% { transform: translateX(-100%); }
+            45% { transform: translateX(-100%); }
+            50% { transform: translateX(-200%); }
+            70% { transform: translateX(-200%); }
+            75% { transform: translateX(-300%); }
+            95% { transform: translateX(-300%); }
+            100% { transform: translateX(0); }
+        }
+
+        .carousel-item {
+            min-width: 100%;
+            flex: 0 0 100%;
+            box-sizing: border-box;
+            padding: 1rem;
+            background-color: #3C3C3C;
+            border-radius: 8px;
+            box-shadow: 0 4px 8px #131313(0, 0, 0, 0.1);
+            color: #f2f2f2;
+            text-align: center;
+        }
+
+        .floating-prebook {
+            position: fixed;
+            bottom: 2rem;
+            right: 2rem;
+            background-color: #F9ED32;
+            color: #202020;
+            padding: 1rem 2rem;
+            border-radius: 50px;
+            text-decoration: none;
+            box-shadow: 0 4px 8px #131313(0, 0, 0, 0.2);
+            transition: background-color 0.3s;
+        }
+
+        .floating-prebook:hover {
+            background-color: #FFF225;
+        }
+
+        footer {
+            background-color: #2C2A2A;
+            padding: 1rem 0;
+            text-align: center;
+        }
+
+        footer ul {
+            list-style: none;
+            display: flex;
+            justify-content: center;
+            margin: 0;
+            padding: 0;
+        }
+
+        footer ul li {
+            margin: 0 1rem;
+        }
+
+        footer a {
+            color: #FFFFFF;
+            text-decoration: none;
+        }
+
+        footer a:hover {
+            color: #F9ED32;
+        }
+
+        .content-section {
+            padding: 2rem;
+            text-align: center;
+        }
+
+        .content-section h2 {
+            font-family: 'Poppins', sans-serif;
+            font-size: 2rem;
+            margin-bottom: 1rem;
+        }
+
+        .content-section p {
+            font-family: 'Calibri', sans-serif;
+            font-size: 1rem;
+            line-height: 1.5;
+            color: #EDEDED;
+            margin-bottom: 1.5rem;
+        }
+
+        .products-section {
+            display: flex;
+            justify-content: space-around;
+            flex-wrap: wrap;
+        }
+
+        .product-card {
+            background-color: #3C3C3C;
+            border-radius: 10px;
+            padding: 1rem;
+            margin: 1rem;
+            width: calc(33% - 2rem);
+            box-shadow: 0 4px 8px #131313(0, 0, 0, 0.1);
+        }
+
+        .product-card img {
+            width: 100%;
+            border-radius: 10px;
+        }
+
+        .product-card h3 {
+            font-family: 'Poppins', sans-serif;
+            font-size: 1.5rem;
+            margin: 1rem 0;
+        }
+
+        .product-card button {
+            background-color: #F9ED32;
+            color: #202020;
+            padding: 0.5rem 1rem;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-family: 'Poppins', sans-serif;
+        }
+
+        .compare-table {
+            width: 100%;
+            margin: 2rem 0;
+            color: #EDEDED;
+        }
+
+        .compare-table th, .compare-table td {
+            padding: 0.5rem;
+            text-align: center;
+        }
+
+        .compare-table th {
+            background-color: #424242;
+        }
+
+        .compare-table td {
+            background-color: #3C3C3C;
+        }
+
+        .contact-details {
+            font-family: 'Calibri', sans-serif;
+            font-size: 1rem;
+            line-height: 1.5;
+            color: #EDEDED;
+        }
+
+        .color-selection {
+            margin: 1rem 0;
+        }
+
+        .color-btn {
+            width: 30px;
+            height: 30px;
+            border-radius: 50%;
+            border: 2px solid #FFFFFF;
+            margin: 0 5px;
+            cursor: pointer;
+            display: inline-block;
+        }
+
+        @media (max-width: 768px) {
+            .vehicles img {
+                width: 100%;
+            }
+
+            .product-card {
+                width: calc(100% - 2rem);
+            }
+        }
+        .product-details {
+      display: none;
+      padding: 20px;
+      margin-top: 10px;
+      border: 1px solid #fafafa;
+      border-radius: 5px;
+      background-color: #f2f2f2;
+      animation: fadeIn 0.5s ease;
+    }
+
+    @keyframes fadeIn {
+      from {
+        opacity: 0;
+      }
+      to {
+        opacity: 1;
+      }
+    }
+
+    .hidden {
+      display: none;
+    }
+
+    body {
+            font-family: Arial, sans-serif;
+        }
+        .content-section {
+            padding: 40px;
+            text-align: center;
+        }
+        .explore-button {
+            padding: 10px 20px;
+            background-color: #F9ED32;
+            color: #f2f2f2;
+            border: none;
+            cursor: pointer;
+            transition: transform 0.3s ease, background-color 0.3s ease;
+        }
+        .explore-button:hover {
+            transform: scale(1.1);
+            background-color: #F9ED32;
+        }
+        .products-section {
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+            flex-wrap: wrap;
+        }
+        .product-card {
+            border: 1px solid #f2f2f2;
+            padding: 20px;
+            width: 300px;
+            text-align: center;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+        .product-card:hover {
+            transform: scale(1.05);
+            box-shadow: 0 4px 8px #131313(0, 0, 0, 0.2);
+        }
+        .color-selection {
+            display: flex;
+            justify-content: center;
+            margin: 10px 0;
+        }
+        .color-btn {
+            width: 20px;
+            height: 20px;
+            margin: 0 5px;
+            border-radius: 50%;
+            cursor: pointer;
+            border: 1px solid #f2f2f2;
+        }
+
+    </style>
+</head>
+<body>
+    <header>
+        <nav>
+            <div class="logo" style="text-align: left;">
+                <img src="https://rhyno.in/wp-content/uploads/2021/06/Transparent-logo-1-768x384.png" alt="Rhyno EV Logo">
+            </div>
+            <ul>
+                <li><a href="#home">Home</a></li>
+                <li><a href="#about">About Us</a></li>
+                <li class="dropdown">
+                    <a href="#products" class="dropbtn">Products</a>
+                    <div class="dropdown-content">
+                        <a href="#se03-lite">SE03 Lite</a>
+                        <a href="#se03">SE03</a>
+                        <a href="#se03-max">SE03 Max</a>
+                        <a href="#compare-all">Compare All</a>
+                    </div>
+                </li>
+                <li><a href="#contact">Contact Us</a></li>
+                <li><a href="#pre-book">Pre-book Now</a></li>
+                <li><a href="https://instagram.com" target="_blank"><img src="https://clipartcraft.com/images/instagram-logo-transparent-background-2.png"alt="Instagram" style="width: 20px; height: auto;"></a></li>
+                <li><a href="https://linkedin.com" target="_blank"><img src="https://th.bing.com/th/id/R.a330e248626552a23af35e5c46526234?rik=DZhkgnpER0YViQ&riu=http%3a%2f%2fpngimg.com%2fuploads%2flinkedIn%2flinkedIn_PNG8.png&ehk=4bFzIDABrAypqOis7809R99fdbUW93GC4XfvnNxZfdA%3d&risl=&pid=ImgRaw&r=0" alt="LinkedIn" style="width: 20px; height: auto;"></a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <div class="hero">
+        <h1>Let's Elevate Your Ride Experience With Rhyno – Where Superiority Meets <span class="changing-word">Style</span>.</h1>
+    </div>
+
+    <section class="vehicles">
+        <center>
+
+        <div class="product">
+            <div class="product-card" data-aos="fade-up">
+            <img src="https://greenwheelsindia.com/wp-content/uploads/2023/03/Rhyno-electric-scooter-1024x576.jpg" alt="SE03 Lite">
+            <h2>RHYNO SE03 Lite</h2>
+            <p>Starting at ₹2.9 Lacs</p>
+            <button class="explore-btn" onclick="toggleDetails('lite')">Explore</button>
+    <div id="lite-details" class="details hidden">
+      <h1>Specification:</h1>
+      <ul>
+        <p>Battery: 1.8KWh</p>
+        <p>Battery Features: LFP with 1500 cycles, Active Balancing, Waterproof (IP67)</p>
+        <p>Battery Warranty: 3 Years</p>
+        <p>Charging Time: 3 hours (12A)</p>
+        <p>Motor: 1500W</p>
+        <p>Max Speed: 50 km/h</p>
+        <p>Warranty on Electronics: 1 year</p>
+        <h1>Max Range:</h1>
+        <ul>
+          <p>@30 km/h: 100 km</p>
+          <p>@45 km/h: 90 km</p>
+          <p>@Full Speed: 70 km</p>
+        </ul>
+        <p>Other Key Benefits: Fire-safe battery, Range prediction, Comfortable ride, Stable and safe</p>
+      </ul>
+    </div>
+          </div>
+          </div>
+          <p></p>
+        
+          <div class="product">
+            <div class="product-card" data-aos="fade-up">
+            <img src="https://i.ytimg.com/vi/pkF_vrCABAY/maxresdefault.jpg" alt="SE03">
+            <h2>RHYNO SE03</h2>
+            <p>Starting at ₹3.9 Lacs</p>
+            <button class="explore-btn" onclick="toggleDetails('se03')">Explore</button>
+            <div id="se03-details" class="details hidden">
+              <h1>Specification:</h1>
+              <ul>
+                <p>Battery: 2.7KWh</p>
+                <p>Battery Features: LFP with 1500 cycles, Active Balancing, Waterproof (IP67)</p>
+                <p>Battery Warranty: 3 Years</p>
+                <p>Charging Time: 4 hours (12A)</p>
+                <p>Motor: 1500W</p>
+                <p>Max Speed: 55 km/h</p>
+                <p>Warranty on Electronics: 1 year</p>
+                <h1>Max Range:</h1>
+                <ul>
+                  <p>@30 km/h: 150 km</p>
+                  <p>@45 km/h: 110 km</p>
+                  <p>@Full Speed: 90 km</p>
+                </ul>
+                <p>Other Key Benefits: Fire-safe battery, Range prediction, Comfortable ride, Stable and safe</p>
+              </ul>
+            </div>
+          </div>
+          </div>
+        <p></p>
+          <div class="product">
+            <div class="product-card" data-aos="fade-up">
+            <img src="https://images.interestingengineering.com/img/iea/QjOd4YEWOd/da-vinci-dc-100-on-road.jpg" alt="SE03 Max">
+            <h2>RHYNO SE03 MAX</h2>
+            <p>Starting at ₹4.9 Lacs</p>
+            <button class="explore-btn" onclick="toggleDetails('se03-max')">Explore</button>
+            <div id="se03-max-details" class="details hidden">
+              <h1>Specification:</h1>
+              <ul>
+                <p>Battery: 2.7KWh</p>
+                <p>Battery Features: LFP with 1500 cycles, Active Balancing, Waterproof (IP67)</p>
+                <p>Battery Warranty: 3 Years</p>
+                <p>Charging Time: 4 hours (12A)</p>
+                <p>Motor: 2000W</p>
+                <p>Max Speed: 65 km/h</p>
+                <p>Warranty on Electronics: 1 year</p>
+                <h1>Max Range:</h1>
+                <ul>
+                  <p>@30 km/h: 120 km</p>
+                  <p>@45 km/h: 100 km</p>
+                  <p>@Full Speed: 80 km</p>
+                </ul>
+                <p>Other Key Benefits: Fire-safe battery, Range prediction, Comfortable ride, Stable and safe</p>
+              </ul>
+            </div>
+          </div>
+        
+          <script src="script.js"></script>
+
+    </center>
+    </section>
+    <section class="usp-carousel" id="usp-carousel">
+     <center> <h2>Why Choose Rhyno..??</h2> </center>  
+        <div class="carousel-container">
+            <div class="carousel">
+                <div class="carousel-item">
+                <h2>LFP Battery</h2>
+                <p>Rhyno is equipped with Lithium Iron Phosphate (LFP) batteries, renowned for their safety features—eliminating the risk of fire associated with other Lithium batteries. These batteries boast a broader temperature range, ideal for the diverse Indian climate. Our technology enhances Rhyno's longevity, complemented by an Active Balancing Smart Battery Management System (BMS) for extended life and reduced maintenance. Each battery undergoes rigorous waterproofing tests according to IP76 standards. But it doesn't stop there—our technology undergoes rigorous waterproofing tests according to IP76 standards. But it doesn't stop there—our technology goes the extra mile in ensuring the battery's lasting durability. Connect with us to discover the thoughtful engineering behind our batteries!</p>
+            </div>
+            <div class="carousel-item">
+                <h2>Wider Tyres</h2>
+                <p>Now, say goodbye to skidding and embrace the leaning turns! Featuring first-of-its-kind, 9.5-inch wider tyres that make this machine an enormous beast that ensures stability on different terrains such as wet roads, mud, and sand.</p>
+            </div>
+            <div class="carousel-item">
+                <h2>Range Prediction</h2>
+                <p>Many budget-friendly electric scooters overlook this crucial feature, causing riders to experience range anxiety. With Rhyno, you can ride with peace of mind, thanks to the scooter providing precise information about the remaining battery.</p>
+            </div>
+            <div class="carousel-item">
+                <h2>Extraordinary Experience</h2>
+                <p>Rhyno is more than just a mode of transportation. It is an experience of sheer comfort and style! A seamless fusion of minimalism, sophistication, and a touch of masculinity!</p>
+            </div>
+            <div class="carousel-item">
+                <h2>Rugged and Simple Design</h2>
+                <p>We’ve had enough of the EVs looking and feeling like fragile plastic toys. Often fading out and shamelessly breaking in minor accidents, ending up spending weeks and months at service stations for complex repairs. We took a bold step of making something raw, rugged, and practical. We kept it so simple that even your trusted local mechanic can understand and repair most of it. If you have reached this far, why not to take a test ride? Click here to locate your nearest dealership or book a test ride at your home!</p>
+            </div>
+        </div>
+    </section>
+    
+    <section class="content-section" id="about">
+        <h2>About Rhyno</h2>
+        <p>Established in 2019 by an automotive engineer with a vision for sustainable and robust mobility solutions, Rhyno EV is not just a company; it's a collective effort of a dynamic team of young individuals passionately driving innovation in the electric vehicle industry. We believe in engineering solutions that solve problems.</p>
+    <p>With our first product, we've taken a bold step to create something more than just a vehicle; it's a unique experience of elegance, comfort and style, addressing the pitfalls of conventional electric scooters. Our design prioritizes safety, eliminating concerns of fires and ensuring a longer battery lifespan with our battery technology. Perfectly suited for fleet operators, especially in tourist-centric locations like Goa, our rugged yet aesthetically appealing scooters are engineered for longevity and reliability. Join us as we pioneer a new era in sustainable and dependable electric transportation.</p>
+    </section>
+
+    <section class="content-section" id="products">
+        <h2>Our Products</h2>
+        <div class="products-section">
+            <div class="product-card">
+                <img src="https://th.bing.com/th/id/OIP.Ziggcs1681OmYlDsoI8QeQAAAA?w=450&h=600&rs=1&pid=ImgDetMain" alt="SE03 Lite">
+                <h3>Rhyno SE03 Lite</h3>
+                <p>Indulge in the perfect harmony of power and range with this Rhyno. Offering an exhilarating experience with its robust 2000W motor, it ensures a thrilling ride while still delivering an impressive 80-100km range on a single charge. Like its counterparts, this machine features the safety assurance of a fire-safe advanced LFP battery, along with the comprehensive benefits of owning a Rhyno. Boasting a formidable combination of a 2000W motor and a 2.7kWh battery, this beast is ready to roar on the roads, providing an electrifying journey at every turn. Check out the other details below!</p>
+              
+                <div class="color-selection">
+                    <span class="color-btn" style="background-color: red;" onclick="selectColor('SE03 Lite', 'Red')"></span>
+                    <span class="color-btn" style="background-color: blue;" onclick="selectColor('SE03 Lite', 'Blue')"></span>
+                    <span class="color-btn" style="background-color: green;" onclick="selectColor('SE03 Lite', 'Green')"></span>
+                </div>
+
+                <nav>
+                    <ul>
+                        
+                        <li><a href="Buy Now.html"><button>Buy Now</button></a></li>
+                       
+                    </ul>
+                </nav>
+            </div>
+            <div class="product-card">
+                <img src="https://rhyno.in/wp-content/uploads/elementor/thumbs/rhyno-final.4-e1650890245686-pnvvnuq5mv51vr5bxy4yg1o373eqsosw8bnjuyuhxc.png" alt="SE03">
+                <h3>Rhyno SE03</h3>
+                <p>Indulge in the perfect harmony of power and range with this Rhyno. Offering an exhilarating experience with its robust 2000W motor, it ensures a thrilling ride while still delivering an impressive 80-100km range on a single charge. Like its counterparts, this machine features the safety assurance of a fire-safe advanced LFP battery, along with the comprehensive benefits of owning a Rhyno. Boasting a formidable combination of a 2000W motor and a 2.7kWh battery, this beast is ready to roar on the roads, providing an electrifying journey at every turn. Check out the other details below!</p>
+                <div class="color-selection">
+                    <span class="color-btn" style="background-color: red;" onclick="selectColor('SE03', 'Red')"></span>
+                    <span class="color-btn" style="background-color: blue;" onclick="selectColor('SE03', 'Blue')"></span>
+                    <span class="color-btn" style="background-color: green;" onclick="selectColor('SE03', 'Green')"></span>
+                </div>
+                <nav>
+                    <ul>
+                        
+                        <li><a href="Buy Now.html"><button>Buy Now</button></a></li>
+                       
+                    </ul>
+                </nav>
+            </div>
+            <div class="product-card">
+                <img src="https://rhyno.in/wp-content/uploads/elementor/thumbs/rhyno-final.85-min-e1650899511409-pnw2dseopqby6jq17iy17zt7jexu039q5skoow4ke8.png" alt="SE03 Max">
+                <h3>Rhyno SE03 Max</h3>
+                <p>This Rhyno is tuned for long drives and no thrills. Like all other variants, this machine comes with a fire-safe advanced LFP battery and all the other benefits of owning a Rhyno, along with a perfect blend of battery capacity and motor power to provide up to 150 km range on a single charge. While it may not provide a thrilling ride, it promises a dependable and unwavering presence on the long stretches. </p>
+                <div class="color-selection">
+                    <span class="color-btn" style="background-color: red;" onclick="selectColor('SE03 Max', 'Red')"></span>
+                    <span class="color-btn" style="background-color: blue;" onclick="selectColor('SE03 Max', 'Blue')"></span>
+                    <span class="color-btn" style="background-color: green;" onclick="selectColor('SE03 Max', 'Green')"></span>
+                </div>
+                <nav>
+                    <ul>
+                        
+                        <li><a href="Buy Now.html"><button>Buy Now</button></a></li>
+                       
+                    </ul>
+                </nav>
+            </div>
+        </div>
+    </section>
+
+    <section class="content-section" id="compare-all">
+        <h2>Compare All Models</h2>
+        <table class="compare-table">
+            <thead>
+                <tr>
+                    <th>Specification</th>
+                    <th>Rhyno SE03 Lite</th>
+                    <th>Rhyno SE03</th>
+                    <th>Rhyno SE03 Max</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>Battery</td>
+                    <td>1.8Kwh</td>
+                    <td>2.7Kwh</td>
+                    <td>2.7Kwh</td>
+                </tr>
+                <tr>
+                    <td>Battery Features</td>
+                    <td>LFP with 1500 cycles, Active Balancing, Waterproof (IP67)</td>
+                    <td>LFP with 1500 cycles, Active Balancing, Waterproof (IP67)</td>
+                    <td>LFP with 1500 cycles, Active Balancing, Waterproof (IP67)</td>
+                </tr>
+                <tr>
+                    <td>Battery Warranty</td>
+                    <td>3 years</td>
+                    <td>3 Years</td>
+                    <td>3 Years</td>
+                </tr>
+                <tr>
+                    <td>Charging Time</td>
+                    <td>3 hours (12A)</td>
+                    <td>4 hours (12A)</td>
+                    <td>4 hours (12A)</td>
+                </tr>
+                <tr>
+                    <td>Motor</td>
+                    <td>1500W</td>
+                    <td>1500W</td>
+                    <td>2000W</td>
+                </tr>
+                <tr>
+                    <td>Max Speed</td>
+                    <td>55 km/h</td>
+                    <td>55 km/h</td>
+                    <td>65 km/h</td>
+                </tr>
+                <tr>
+                    <td>Warranty on Electronics</td>
+                    <td>1 year</td>
+                    <td>1 year</td>
+                    <td>1 year</td>
+                </tr>
+                <tr>
+                    <td>Max Range (@30km/h)</td>
+                    <td>100 km</td>
+                    <td>150 km</td>
+                    <td>120 km</td>
+                </tr>
+                <tr>
+                    <td>Max Range (@45km/h)</td>
+                    <td>90 km</td>
+                    <td>110 km</td>
+                    <td>100 km</td>
+                </tr>
+                <tr>
+                    <td>Max Range (@full speed)</td>
+                    <td>60 km</td>
+                    <td>90 km</td>
+                    <td>80 km</td>
+                </tr>
+                <tr>
+                    <td>Other Key Benefits</td>
+                    <td>Fire-safe Battery, Range Prediction, Comfortable Ride, Stable and Safe</td>
+                    <td>Fire-safe Battery, Range Prediction, Comfortable Ride, Stable and Safe</td>
+                    <td>Fire-safe Battery, Range Prediction, Comfortable Ride, Stable and Safe</td>
+                </tr>
+            </tbody>
+        </table>
+        <nav>
+            <ul>
+                
+                <li><a href="Buy Now.html"><button>Buy Now</button></a></li>
+               
+            </ul>
+        </nav>
+    </section>
+
+    <section class="content-section" id="contact">
+        <h2>Contact Us</h2>
+        <p class="contact-details">For more information, reach out to us at:</p>
+        <p class="contact-details">Email: contact@rhyno.com</p>
+        <p class="contact-details">Phone: +91-9023987528</p>
+        <p><strong>Location:</strong> Rhyno Wheels Private Limited, Near UG Hostel Gate #2, Behind PDEU, Raisan, Gandhinagar, Gujarat, India.</p>
+    </section>
+
+    <section id="rentals" class="content-section">
+        <h3>Rhyno EV Rental Services</h3>
+        <p>Explore the roars of Rhyno at your own pace with our rental options! Test the waters with our flexible rental model, available for a week or a month, allowing you to experience the Rhyno first hand before committing. Simply visit our authorized dealerships to unlock this opportunity.</p>
+        <p>Additionally, we're redefining campus commuting with our rental fleet tailored for college students. Navigate your daily commute effortlessly by renting Rhyno vehicles on an hourly basis through our user-friendly mobile app. Embrace the freedom to ride and explore a new dimension in sustainable and convenient transportation.</p>
+        <p>Contact us today to book your rental and experience the future of mobility!</p>
+        <section class="download-section">
+        <h2>Download Our Rental App</h2>
+        <div class="download-buttons">
+            <a href="#" class="download-button android">
+                <img src="https://th.bing.com/th/id/OIP.n6T1jXE0AKTlhV-ITyergQHaGq?rs=1&pid=ImgDetMain" alt="Android" width="45">
+                <span>Download for Android</span>
+            </a>
+            <a href="#" class="download-button apple">
+                <img src="https://th.bing.com/th/id/OIP.pW0TOZyl_OZMIuo5HjUsyQHaIf?rs=1&pid=ImgDetMain" alt="Apple" width="35">
+                <span>Download for Apple</span>
+            </a>
+        </div>
+    </section>
+
+    </section>
+
+
+    <a href="k.html" class="floating-prebook">Pre-book Now</a>
+
+    <footer>
+        <ul>
+            <li><a href="#">Privacy Policy</a></li>
+            <li><a href="#">Refund Policy</a></li>
+            <li><a href="#">Website Policy</a></li>
+            <li><a href="#contact">Contact Us</a></li>
+            <li><a href="#products">Products</a></li>
+            <li><a href="https://www.linkedin.com/company/your-company-name/" target="_blank">Career</a></li>
+            <li><a href="#rentals">Rentals</a></li>
+            <li><a href="https://instagram.com" target="_blank"><img src="https://clipartcraft.com/images/instagram-logo-transparent-background-2.png"alt="Instagram" style="width: 20px; height: auto;"></a></li>
+            <li><a href="https://linkedin.com" target="_blank"><img src="https://th.bing.com/th/id/R.a330e248626552a23af35e5c46526234?rik=DZhkgnpER0YViQ&riu=http%3a%2f%2fpngimg.com%2fuploads%2flinkedIn%2flinkedIn_PNG8.png&ehk=4bFzIDABrAypqOis7809R99fdbUW93GC4XfvnNxZfdA%3d&risl=&pid=ImgRaw&r=0" alt="LinkedIn" style="width: 20px; height: auto;"></a></li>
+        </ul>
+        <p>&copy; 2024 Rhyno EV. All rights reserved.</p>
+    </footer>
+
+    <script>
+        const words = ["Style", "Elegance", "Minimalism", "Comfort"];
+        let currentIndex = 0;
+
+        function changeWord() {
+            const wordElement = document.querySelector(".changing-word");
+            wordElement.textContent = words[currentIndex];
+            currentIndex = (currentIndex + 1) % words.length;
+        }
+
+        setInterval(changeWord, 2000);
+
+        function selectColor(product, color) {
+            alert(`You selected ${color} for ${product}`);
+        }
+        function toggleDetails(model) {
+      var details = document.getElementById(model + '-details');
+      if (details.classList.contains('hidden')) {
+        details.classList.remove('hidden');
+      } else {
+        details.classList.add('hidden');
+      }
+    }
+    </script>
+     <script src="https://cdnjs.cloudflare.com/ajax/libs/aos/2.3.4/aos.js"></script>
+     <script>
+         AOS.init();
+     </script>
+
+
+</body>
+</html>
